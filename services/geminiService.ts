@@ -53,7 +53,6 @@ export const fetchPhrase = async (): Promise<PhraseData> => {
         });
 
         const jsonText = response.text.trim();
-        console.log("Gemini raw response:", jsonText);
 
         const parsedData = JSON.parse(jsonText) as PhraseData;
 

@@ -8,12 +8,27 @@ interface PhraseCardProps {
 }
 
 export const PhraseCard: React.FC<PhraseCardProps> = ({ data }) => {
+  const speak = (text: string) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.rate = 0.95;
+    speechSynthesis.speak(utterance);
+  };
+
   return (
     <div className="w-full bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 sm:p-8 border border-slate-200 dark:border-slate-700 transition-all duration-300">
       <div className="mb-6">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 leading-tight">
           {data.phrase}
         </h2>
+        <button
+          onClick={() => speak(data.phrase)}
+          aria-label={`Listen to ${data.phrase}`}
+          className="text-indigo-500 hover:text-indigo-700 dark:hovertext-indigo-300 transition"
+          title="Play pronunciation"
+        >
+          🔊
+        </button>
       </div>
 
       <div className="mb-6 space-y-2">
