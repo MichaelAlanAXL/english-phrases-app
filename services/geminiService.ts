@@ -32,9 +32,19 @@ const phraseSchema = {
 
 export const fetchPhrase = async (): Promise<PhraseData> => {
     try {
+        const seed = Math.floor(Math.random() * 10000);
+
         const response = await ai.models.generateContent({
             model: "gemini-2.5-flash",
-            contents: "Generate a common English idiom or phrasal verb. Provide its meaning and two example sentences.",
+            contents: `Generate a completely different and common English phrasal verb or idiom **each time** this prompt is called. 
+                Never repeat the same phrase, and avoid using "break a leg" or any phrase you've used recently. 
+                Provide the following JSON structure:
+                {
+                "phrase": "...",
+                "meaning": "...",
+                "examples": ["...", "..."]
+                }
+                Seed: ${seed}`,
             config: {
                 responseMimeType: "application/json",
                 responseSchema: phraseSchema,
@@ -43,6 +53,8 @@ export const fetchPhrase = async (): Promise<PhraseData> => {
         });
 
         const jsonText = response.text.trim();
+        console.log("Gemini raw response:", jsonText);
+
         const parsedData = JSON.parse(jsonText) as PhraseData;
 
         // Basic validation
