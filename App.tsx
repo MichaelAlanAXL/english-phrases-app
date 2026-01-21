@@ -65,7 +65,7 @@ const App: React.FC = () => {
       </main>
 
       <footer className="text-center mt-12 text-sm text-slate-500 dark:text-slate-400">
-        <p>&copy; {new Date().getFullYear()} English Phrase of the Day. Powered by Gemini.</p>
+        <p>&copy; {new Date().getFullYear()} English Phrase of the Day. Powered by <a href="https://michaelalanaxl.github.io/">Michael Alan</a>.</p>
       </footer>
     </div>
   );
